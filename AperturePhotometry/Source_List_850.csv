@@ -1,0 +1,16 @@
+Source,Center_X,Center_Y,Rstar,Rin,Rout,
+cit6,135,131,11,21,31,
+epaqr,122,104,1,2,3,Ignore Result. No Ext. Numbers added purely so code can work without breaking due to NAN
+iktau,139,118,6,26,31,
+irc10011,136,130,5,25,30,
+irc10216,160,161,16,21,26,
+lpand,131,126,5,20,25,
+nmlcyg,134,126,5,20,25,
+ocet,677,646,10,15,20,
+rcas,128,121,4,19,24,
+rleo,134,131,1,2,3,Ignore Result. No Ext. Numbers added purely so code can work without breaking due to NAN
+rxboo,135,129,8,25,30,
+txcam,142,126,14,30,40,
+uhya,133,125,5,20,25,
+waql,131,119,20,30,40,
+whya,133,122,14,30,40,
