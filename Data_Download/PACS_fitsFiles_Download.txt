@@ -1,0 +1,8 @@
+To download Herschel PACS PSFs see -- http://cdsarc.u-strasbg.fr/viz-bin/Cat?J/A%2bA/591/A117
+Titles = 1) PACS PSF at 70um for Vscan=20"
+	 2) PACS PSF at 160um for Vscan=20"
+
+The publicly available Herschel PACS observations from the Herschel MESS survey (Groenewegen et al., 2011) can be downloaded from the Herschel Science Archive at http://archives.esac.esa.int/hsa/whsa/
+
+proposal ID: KPGT_mgroen01_1
+AOR: Pphoto-…..._45
