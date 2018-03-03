@@ -1,0 +1,71 @@
+Acknowledgment: The authors would like to thank Dr. Matthew Smith (matthew.smith@astro.cf.ac.uk) at Cardiff University for providing us with the beta profile of M31 used in this study. The profile was originally presented in Smith et al., 2012, APJ, 756, 40. 
+
+###################################################################################################################################
+    ########### Uniform Mass Loss model ################################
+###################################################################################################################################
+
+- Generating a radially dependent dust mass column density profile assuming uniform mass loss. 
+
+- We assume dust mass column density \prop to 1/r^2 relationship and extending it in the z and impact parameter directions. 
+
+
+###### Input files required ####################
+
+ - x_interp.dat file containing x axis information for upto which to generate the UMLM
+
+###### Output ##################################  
+
+1) .csv file containing the dust mass column density radial profile derived assuming uniform mass loss. This profile can now be over-plotted with the dust mass column density derived using SED fitting to show the deviation of the SED derived profile from uniform mass loss. 
+
+
+
+################################################################################################################################
+                    ################## SED fitting ########################
+#################################################################################################################################
+
+- Script to fit a modified blackbody profile to the 4 point SED generated using the residual radial profiles for the chosen source using MCMC. fitting method described in detail in Appendix 1 of the paper.  
+
+###### Input files required ####################
+1) .csv table files containing interpolated source residual profile and unc. data for each wavelength generated in the Radial Profiles step. eg:For CIT6 - cit6_res_interp.csv, cit6_res_interp_unc.csv
+2) .dat table file containing the required radial points. x_interp.dat
+3) .fits file of the beta profile of M31. Smith_etal_2012_M31_BetaMap.fits
+4) .txt files containing filter response curves for SCUBA-2 and PACS - pacs_filter_response_curve_blue70.txt, pacs_filter_response_curve_red160.txt, scuba2_filter_response_curve_450.txt, scuba2_filter_response_curve_850.txt. 
+	- SCUBA-2 filter response curves downloaded from the EAO JCMT SCUBA-2 filters page: "http://www.eaobservatory.org/jcmt/instrumentation/continuum/scuba-2/filters/". PACS filter response curves downloaded from the SVO Filter Profile Service (Rodrigo et al., 2012): "http://svo2.cab.inta-csic.es/svo/theory/fps/index.php?mode=browse&gname=Herschel&gname2=Pacs".
+5) PACS PSFs in .fits form downloaded from Bocchio et al., 2016 via Vizier 
+
+######### Output ####################
+
+1) .csv file containing Temperature, dust mass column density and beta radial profile for the chosen source which can later be used to plot these profiles. 
+
+
+
+################################################################################################################################
+                    ################## Plotting resulting Temperature, Density and Beta Profiles ########################
+#################################################################################################################################
+
+- script which plots the radially dependent temperature, density and beta profiles resulting from the SED mcmc fitting.
+- The profile x axes are presented in both projected radius (arcsec) and age of CSE (years). 
+- The age is calculated using the physical radius (cm - derived using projected radius and distance to source) and the terminal velocity (from De Beck et al., 2010) - (time = dist / vel) 
+
+###### Input files required ####################
+1) .csv file containing source names, distances, terminal velocities, Anchor points for uniform mass loss model - Source_Information.csv
+2) .csv table file containing the required radial points. x_interp.csv
+3) .csv file containing Temperature, dust mass column density and beta radial profiles for all sources from the above. eg: for CIT6 - cit6_temperature_radial_output.csv, cit6_density_radial_output.csv, cit6_beta_radial_output.csv.
+4) .csv file containing the dust mass column density radial profile derived assuming uniform mass loss derived from above: uniform_MassLoss_Model.csv - for over-plotting on the mcmc derived  dust mass column density to show the deviation of it from uniform mass loss. 
+	- This profile is scaled to a chosen point on the  mcmc derived  dust mass column density in order to plot it.   
+
+######### Output ####################
+1) .png of image of the temperature, density and beta profile for all the sources in the sample. 
+
+
+
+
+
+
+
+
+
+
+
+
+

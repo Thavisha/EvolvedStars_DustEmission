@@ -1,0 +1,65 @@
+Scripts are being generated to do this automatically and is in preparation stages. 
+
+########### Downloading raw SCUBA-2 Data from JCMT CADC Archive ############
+
+1) wget --content-disposition -i urllist.txt 
+ 
+- urllist.txt is the list of download URLs provided by CADC in order to download after choosing the observations and clicking download. 
+- tabs to fill in CADC = Program ID: M15BI047 and M15AI65. Collection: JCMT. Instrument: SCUBA-2. Filter:450 or 850. Cal.Lev: Raw Instrumental. Data Type: All. Obs Type: Scan.
+- IRC+10216 and O Ceti individual pointing observation Obs IDs given in separate csv files (tabs to fill in CADC = Target: IRC+10216 or Mira. Cal Lev: Raw Instrumental. Obs-Type: Pointing. Program ID is ignored here). 
+
+
+
+
+############## Reducing SCUBA-2 Data #########################
+
+** Version 2017A used for this paper (Can be carried out with version 2016B and later) **
+** edited dimmconfig file (as given below used for these reductions ** 
+
+Input commnads for terminal once Starlink is loaded:
+
+1) oracdr_scuba2_450 OR 850
+
+2) export ORAC_DATA_IN=”Path to the present working directory obtained from command ‘pwd’”
+
+3) ls s4* OR s8* >> filenames.lis – to get all the filenames into a file to run in oracdr
+
+4) i) REDUCE_SCAN_ISOLATED_SOURCE pipeline
+	oracdr -loop file -files “filenames.lis” -verbose -recpars “myparams.ini” REDUCE_SCAN_ISOLATED_SOURCE 
+
+	FOR M15BI047 and M17AI65 REDUCTIONS 
+	In the dimmconfig_bright_compact.lis file in Starlink change “ast.zero_circle”  and “ flt.zero_circle” 	to  = (0.025000) to make the annulus size 1.5’(=0.025000 degrees) instead of default 1’ (example file provided in repository: dimmconfig_bright_compact_EDITED.lis). 
+
+	OR 
+
+    ii) REDUCE_SCAN pipeline
+	  oracdr -loop file -files “filenames.lis” -verbose -recpars “myparams.ini” REDUCE_SCAN
+
+
+- filenames.lis is the file with the list of sdf files to be reduced created in step 3.
+- myparams.ini is the parameter file written in gedit which contains the parameters under which the recipie is to run (example given below and example file given in repository: myparams.ini). 
+- If default is wanted then leave out ‘-recpars myparams.ini’. 
+
+
+Parameter file for converting from mJy/beam to mJy/arcsec**2 and to use edited dimmconfig file
+[REDUCE_SCAN_ISOLATED_SOURCE]            ##– pipeline name in sqaure brackets in block letters 
+CALUNITS = ARCSEC
+MAKEMAP_CONFIG = dimmconfig_bright_compact_edited.lis
+
+5) Registering Individual Reduced Images to one Position (In order to mosaic them in the next step. Registered based on peak brightness central pixel postion). 
+	picard -recpars REGISTER_IMAGES=1 SCUBA2_REGISTER_IMAGES gs*.sdf
+
+6) Mosaicing (co-adding) multiple Reduced Images to one using the registered images (The images are Mosaiced onto the brightest central pixel of the first obs in the list).
+	picard MOSAIC_JCMT_IMAGES gs2*reg.sdf
+
+7) Converting multiple ndf files to fits in “convert”. 
+	i) Convert
+
+	ii) ndf2fits in=* out=*      
+
+
+############### Output  ##############################
+
+- reduced .fits files of the observation   
+
+	

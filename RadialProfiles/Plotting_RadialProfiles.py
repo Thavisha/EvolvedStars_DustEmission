@@ -8,6 +8,26 @@ import pylatex
 import matplotlib.ticker as mtick
 import warnings
 
+"""
+################################################################################################################################
+                    ################## Plotting Radial Profiles ########################
+#################################################################################################################################
+
+- Script to plot the source radial profile+PSF profile and the residual profile for all wavelengths for each source.
+
+- Plotting results derived from the script described above. 
+
+###### Input files required ####################
+1) .csv table files containing source radial profile, psf profile and residual profile data for each wavelength. eg:For CIT6 - cit6_UnInterpolated_70.csv, cit6_UnInterpolated_160.csv, cit6_UnInterpolated_450.csv, cit6_UnInterpolated_850.csv.
+2) .csv table containing source distances in order to convert from projected to physical radius. - Source_Distances.csv
+
+
+############ Output ##############
+
+- plot of source radial profile+PSF profile and the residual profile for all wavelengths for the chosen source. Radial (x) axes are given in both projected (arcsec) and physical (pc) sizes.
+
+"""
+
 font = {'family' : 'normal',
         'size'   : 18,
 	'style'  : 'oblique',
