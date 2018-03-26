@@ -27,7 +27,7 @@
 ################## Plotting Gas MLR vs. Dust MLR - with best fit line and Dust-to-Gas ratio = 1/200 line ########################
 #################################################################################################################################
 
-- Script to plot the CO Gas MLR vs. Dust MLR (dervied from integrating the density profile) with Chi sqaure minimized line of best fit and the canonical dust-to-gas ratio of 1/200 line. 
+- Script to plot the CO Gas MLR vs. Dust MLR (dervied from integrating the density profile) with Canonical dust to gas ratios for C--rich and O-rich sources 
 
 - Plotting results derived from the script described above. 
 
@@ -36,7 +36,7 @@
 
 
 ########## Output ##############
-- plot of  CO Gas MLR vs. Dust MLR with Chi sqaure minimized line of best fit and the canonical dust-to-gas ratios for C and O rich.
+- plot of  CO Gas MLR vs. Dust MLR and the canonical dust-to-gas ratios for C and O rich.
 
 
 

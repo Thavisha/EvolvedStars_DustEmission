@@ -4,11 +4,8 @@ from astropy.table import Table
 import scipy.optimize as optimization
 
 """
-################################################################################################################################
-################## Plotting Gas MLR vs. Dust MLR - with best fit line and Dust-to-Gas ratio = 1/200 line ########################
-#################################################################################################################################
 
-- Script to plot the CO Gas MLR vs. Dust MLR (dervied from integrating the density profile) with Chi sqaure minimized line of best fit and the canonical dust-to-gas ratio of 1/200 line. 
+- Script to plot the CO Gas MLR vs. Dust MLR (dervied from integrating the density profile) with Canonical dust to gas ratios for C--rich and O-rich sources 
 
 - Plotting results derived from the script described above. 
 
@@ -17,7 +14,9 @@ import scipy.optimize as optimization
 
 
 ########## Output ##############
-- plot of  CO Gas MLR vs. Dust MLR with Chi sqaure minimized line of best fit and the canonical dust-to-gas ratios for C and O rich.
+- plot of  CO Gas MLR vs. Dust MLR and the canonical dust-to-gas ratios for C and O rich.
+
+
 """
 
 
@@ -55,7 +54,7 @@ mean_dust_to_gas_ratio = np.average(Dust_to_Gas_Ratio)
 best_fit, covariance = optimization.curve_fit(line_function, Gas_MassLoss_Rate, Dust_MassLoss_Rate, [mean_dust_to_gas_ratio,1]) 
 best_fit_y = (best_fit[0]*Gas_MassLoss_Rate)**best_fit[1] #b(x**m). b is the 0th element in best fit and m is the 1st. 
 #print best_fit #[b=0.46310733,  m=1.31520542]
-fig = plt.figure(figsize=(8, 6)) #(width,height)
+fig = plt.figure(figsize=(9, 7)) #(width,height)
 plt.plot(Gas_MassLoss_Rate[o_rich], Dust_MassLoss_Rate[o_rich], 'o', markersize=10, color='mediumblue')
 plt.plot(Gas_MassLoss_Rate[c_rich], Dust_MassLoss_Rate[c_rich], '*', markersize=10, color='crimson')
 plt.plot(Gas_MassLoss_Rate[rsg_type], Dust_MassLoss_Rate[rsg_type], '^', markersize=10, color='maroon')
@@ -65,8 +64,8 @@ plt.plot(np.sort(Gas_MassLoss_Rate), 0.007*np.sort(Gas_MassLoss_Rate), '--', mar
 #plt.plot(np.sort(Gas_MassLoss_Rate), np.sort(best_fit_y), '--', markersize=6, color='red') #Line of best fit
 plt.yscale('log')
 plt.xscale('log')
-plt.ylabel("Dust Mass Loss Rate ($M_{\\odot}/yr$)")
-plt.xlabel("CO Mass Loss Rate ($M_{\\odot}/yr$)")
+plt.ylabel("Dust Mass Loss Rate (M$_{\\odot}$ yr$^{-1}$)")
+plt.xlabel("CO Mass Loss Rate (M$_{\\odot}$ yr$^{-1}$)")
 plt.savefig('GasMassLossRate_Vs_DustMassLossRate_C-ORatioLines.png')
 #plt.savefig('GasMassLossRate_Vs_DustMassLossRate_withBestFitLin.png')
 plt.show()

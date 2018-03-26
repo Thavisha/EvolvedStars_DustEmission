@@ -8,6 +8,7 @@ import pylatex
 import matplotlib.ticker as mtick
 import warnings
 
+
 """
 ################################################################################################################################
                     ################## Plotting Radial Profiles ########################
@@ -30,12 +31,13 @@ import warnings
 
 font = {'family' : 'normal',
         'size'   : 18,
-	'style'  : 'oblique',
-	'weight' : 'medium'}
+	'weight' : 'roman'}
+
+#'style'  : 'oblique',
 
 plt.rc('font', **font)
 
-Source_Data = Table.read('Source_Distances.csv', format='ascii.csv')
+Source_Data = Table.read('Source_Distances+Terminal_Velocities.csv', format='ascii.csv')
 
 for Source in Source_Data:
 
@@ -43,7 +45,7 @@ for Source in Source_Data:
 	distance = Source['Distance(pc)']  #Units = pc
 
 
-	#Distance for converion from arcsec to pc in the plots 
+	#Distance for converion from arcsec to pc
 
 	#Loading and opening PACS 70 micron data files
 	Stellar_Data_70 = Table.read(star+'_UnInterpolated_70.csv', format='ascii.csv')
@@ -96,6 +98,9 @@ for Source in Source_Data:
 	res_850 = Stellar_Data_850['Residual_Profile(mJy/arcsec^2)']
 	res_unc_850 = Stellar_Data_850['Residual_Unc(mJy/arcsec^2)']
 
+	#Convert from Jy/arcsec^2 to Jy????? 
+
+
 
 
 	#################### Plotting ##################################################################
@@ -103,19 +108,22 @@ for Source in Source_Data:
 
 	fig = plt.figure(figsize=(16, 13)) #(width,height)
 	gs = gridspec.GridSpec(4, 2) #(no.of.row, no.of.cols, height.ratio.of.rows)
+	#gs = gridspec.GridSpec(2, 2)
 	gs.update(hspace=0)
 	gs.update(wspace=0)
+	#length = [100, 60, 30, 60] #x axis arcseconds lengths for 70, 160, 450, 850 in this specific order!
+	#b = x[i] < length[i]	
 
 	#Adding common x and y labels
-	fig.text(0.52, 0.055,"Radius ($^{\prime\prime}$)", ha='center') #(distance.from.left.edge.of.image, distance.from.bottom.of.image)
+	fig.text(0.52, 0.055,"Radius ($^{\prime\prime}$)", ha='center', weight="roman") #(distance.from.left.edge.of.image, distance.from.bottom.of.image)
 	#fig.text(0.52, 0.93, 'Radius ($\\times 10^{18}$cm)', ha='center') #cm units
-	fig.text(0.52, 0.93, 'Radius (pc)', ha='center') #pc units
-	fig.text(0.06, 0.5,"log(Surface Brightness (mJy/arcsec$^2$))", va='center', rotation='vertical')
-	fig.text(0.95, 0.5,"Residual (mJy/arcsec$^2$)", va='center', rotation=-90)
+	fig.text(0.52, 0.93, 'Radius (pc)', ha='center', weight="roman") #pc units
+	fig.text(0.06, 0.5,"log(Surface Brightness (mJy arcsec$^{-2}$))", va='center', rotation='vertical', weight="roman")
+	fig.text(0.95, 0.5,"Residual (mJy arcsec$^{-2}$)", va='center', rotation=-90, weight="roman") #rotation='vertical'
 
 
 	#Plotting 70micron Radial + PSF Profile
-	ax1 = fig.add_subplot(gs[0,0])
+	ax1 = fig.add_subplot(gs[0,0]) #gs[row, col]
 	radial_limit_70 = x_70 < 140
 	ax1.errorbar(x_70[radial_limit_70], stellar_70[radial_limit_70], yerr=stellar_unc_70[radial_limit_70], fmt='o', color='midnightblue', markersize=3, label='70$\\mu m$ Stellar Profile') 
 	ax1.errorbar(x_70[radial_limit_70], psf_70[radial_limit_70], fmt='-', markersize=0.5, mew=5, color='grey', linewidth=2, label='70$\\mu m$ PSF', alpha=0.6) 
@@ -123,7 +131,7 @@ for Source in Source_Data:
 	ax1.yaxis.set_major_locator(MaxNLocator(nbins=nbins, prune='both'))
 	ax1Ticks = ax1.get_xticks() 
 	plt.setp(ax1.get_xticklabels(), visible=False)
-	ax1.set_yscale('log')
+	ax1.set_yscale('log') #setting y axis to log scale
 	ax1.set_ylim([10**(np.log10(max(stellar_70[radial_limit_70])) - 5), 10**(np.log10(max(stellar_70[radial_limit_70])))])
 	ax1.legend(fontsize=11)
 
@@ -143,7 +151,7 @@ for Source in Source_Data:
 
 
 	#Plotting 160micron Radial + PSF Profile
-	ax3 = fig.add_subplot(gs[1,0], sharex=ax1)
+	ax3 = fig.add_subplot(gs[1,0], sharex=ax1) #gs[row, col]
 	radial_limit_160 = x_160 < 130
 	ax3.errorbar(x_160[radial_limit_160], stellar_160[radial_limit_160], yerr=stellar_unc_160[radial_limit_160], fmt='o', color='midnightblue', markersize=3,  label='160$\\mu m$ Stellar Profile') 
 	ax3.errorbar(x_160[radial_limit_160], psf_160[radial_limit_160], fmt='-', markersize=0.5, mew=5, color='grey', linewidth=2, label='160$\\mu m$ PSF', alpha=0.6) 
@@ -151,7 +159,7 @@ for Source in Source_Data:
 	ax3.yaxis.set_major_locator(MaxNLocator(nbins=nbins, prune='both'))
 	plt.setp(ax3.get_xticklabels(), visible=False)
 	ax3.set_ylim([10**(np.log10(max(stellar_160[radial_limit_160])) - 4.5), 10**(np.log10(max(stellar_160[radial_limit_160])))])
-	ax3.set_yscale('log')
+	ax3.set_yscale('log') #setting y axis to log scale
 	ax3.legend(fontsize=11, loc=1)
 
 
@@ -170,7 +178,7 @@ for Source in Source_Data:
 
 
 	#Plotting 450micron Radial + PSF Profile
-	ax5 = fig.add_subplot(gs[2,0], sharex=ax1)
+	ax5 = fig.add_subplot(gs[2,0], sharex=ax1) #gs[row, col]
 	radial_limit_450 = x_450 < 70
 	ax5.errorbar(x_450[radial_limit_450], stellar_450[radial_limit_450], yerr=stellar_unc_450[radial_limit_450], fmt='o', color='midnightblue', markersize=3,  label='450$\\mu m$ Stellar Profile') 
 	ax5.errorbar(x_450[radial_limit_450], psf_450[radial_limit_450], fmt='-', markersize=0.5, mew=5, color='grey', linewidth=2, label='450$\\mu m$ PSF', alpha=0.6) 
@@ -197,7 +205,7 @@ for Source in Source_Data:
 
 
 	#Plotting 850micron Radial + PSF Profile
-	ax7 = fig.add_subplot(gs[3,0], sharex=ax1)
+	ax7 = fig.add_subplot(gs[3,0], sharex=ax1) #gs[row, col]
 	radial_limit_850 = x_850 < 90
 	ax7.errorbar(x_850[radial_limit_850], stellar_850[radial_limit_850], yerr=stellar_unc_850[radial_limit_850], fmt='o', color='midnightblue', markersize=3, label='850$\\mu m$ Stellar Profile') 
 	ax7.errorbar(x_850[radial_limit_850], psf_850[radial_limit_850], fmt='-', markersize=0.5, mew=5, color='grey', linewidth=2, label='850$\\mu m$ PSF', alpha=0.6) 
@@ -226,10 +234,11 @@ for Source in Source_Data:
 	#Adding second x axis on top of plot for the cm x axis scale using the cm scale for 70micron for both stellar and res profiles.
 	ax9 = ax1.twiny()
 	#x_70_cm = x_70_cm / 1e18
-	#ax9.errorbar(x_70_cm, stellar_70, yerr=stellar_unc_70, fmt='o', color='none', mec='none') #cm units
-	ax9.errorbar(x_70_pc, stellar_70, yerr=stellar_unc_70, fmt='o', color='none', mec='none') #pc units
+	#ax9.errorbar(x_70_cm, stellar_70, yerr=stellar_unc_70, fmt='o', color='none', mec='none') #cm units!
+	ax9.errorbar(x_70_pc, stellar_70, yerr=stellar_unc_70, fmt='o', color='none', mec='none') #pc units!
 	ax9.set_yscale('log') #setting y axis to log scale
 	ax9.set_ylim([10**(np.log10(max(stellar_70)) - 5), 10**(np.log10(max(stellar_70)))])
+	#ax9.set_xlabel('Radius ($\\times 10^{18}$cm)')
 	ax9.xaxis.set_major_locator(MaxNLocator(nbins=nbins, prune='both')) #removing max val on x axis to prevent merging with res axis labels
 
 
@@ -239,9 +248,10 @@ for Source in Source_Data:
 	ax10.xaxis.set_major_locator(MaxNLocator(nbins=nbins, prune='both')) #removing max val on x axis to prevent merging with res axis labels
 	ax10.set_ylim(ymin=0) #starting y axis from zero
 
+
 	save_file = star + '_RadialProfile.png'
 	plt.savefig(save_file, bbox_inches='tight')
-	plt.show()
+	#plt.show()
 
 
 
