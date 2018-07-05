@@ -235,7 +235,7 @@ for Source in Source_Data:
 	ax9 = ax1.twiny()
 	#x_70_cm = x_70_cm / 1e18
 	#ax9.errorbar(x_70_cm, stellar_70, yerr=stellar_unc_70, fmt='o', color='none', mec='none') #cm units!
-	ax9.errorbar(x_70_pc, stellar_70, yerr=stellar_unc_70, fmt='o', color='none', mec='none') #pc units!
+	ax9.errorbar(x_70_pc[radial_limit_70], stellar_70[radial_limit_70], yerr=stellar_unc_70[radial_limit_70], fmt='o', color='none', mec='none') #pc units!
 	ax9.set_yscale('log') #setting y axis to log scale
 	ax9.set_ylim([10**(np.log10(max(stellar_70)) - 5), 10**(np.log10(max(stellar_70)))])
 	#ax9.set_xlabel('Radius ($\\times 10^{18}$cm)')
@@ -244,7 +244,7 @@ for Source in Source_Data:
 
 	ax10 = ax2.twiny()
 	#ax10.errorbar(x_70_cm, res_70, yerr=res_unc_70, fmt='^', color='none', mec='none') #cm units!
-	ax10.errorbar(x_70_pc, res_70, yerr=res_unc_70, fmt='^', color='none', mec='none') #pc units!
+	ax10.errorbar(x_70_pc[radial_limit_70], res_70[radial_limit_70], yerr=res_unc_70[radial_limit_70], fmt='^', color='none', mec='none') #pc units!
 	ax10.xaxis.set_major_locator(MaxNLocator(nbins=nbins, prune='both')) #removing max val on x axis to prevent merging with res axis labels
 	ax10.set_ylim(ymin=0) #starting y axis from zero
 
