@@ -134,6 +134,7 @@ for Source in Source_Data:
 	ax1.set_yscale('log') #setting y axis to log scale
 	ax1.set_ylim([10**(np.log10(max(stellar_70[radial_limit_70])) - 5), 10**(np.log10(max(stellar_70[radial_limit_70])))])
 	ax1.legend(fontsize=11)
+	ax1.set_xlim(xmin=0) #starting x axis from zero
 
 
 	#Plotting 70micron Residual Profile
@@ -148,6 +149,7 @@ for Source in Source_Data:
 	ax2.yaxis.set_major_locator(MaxNLocator(nbins=nbins, prune='both')) #removing max and min val on y axis to prevent merging with upper labels
 	ax2.set_ylim(ymin=0) #starting y axis from zero
 	ax2.legend(fontsize=11, loc=1)
+	ax2.set_xlim(xmin=0) #starting x axis from zero
 
 
 	#Plotting 160micron Radial + PSF Profile
@@ -161,6 +163,7 @@ for Source in Source_Data:
 	ax3.set_ylim([10**(np.log10(max(stellar_160[radial_limit_160])) - 4.5), 10**(np.log10(max(stellar_160[radial_limit_160])))])
 	ax3.set_yscale('log') #setting y axis to log scale
 	ax3.legend(fontsize=11, loc=1)
+	ax3.set_xlim(xmin=0) #starting x axis from zero
 
 
 	#Plotting 160micron Residual Profile
@@ -175,6 +178,7 @@ for Source in Source_Data:
 	ax4.yaxis.set_major_locator(MaxNLocator(nbins=nbins, prune='both'))
 	ax4.set_ylim(ymin=0) #starting y axis from zero
 	ax4.legend(fontsize=11, loc=1)
+	ax4.set_xlim(xmin=0) #starting x axis from zero
 
 
 	#Plotting 450micron Radial + PSF Profile
@@ -188,6 +192,7 @@ for Source in Source_Data:
 	ax5.set_ylim([10**(np.log10(max(stellar_450[radial_limit_450])) - 5), 10**(np.log10(max(stellar_450[radial_limit_450])))])
 	ax5.set_yscale('log') #setting y axis to log scale
 	ax5.legend(fontsize=11, loc=1)
+	ax5.set_xlim(xmin=0) #starting x axis from zero
 
 
 	#Plotting 450micron Residual Profile
@@ -202,6 +207,7 @@ for Source in Source_Data:
 	ax6.yaxis.set_major_locator(MaxNLocator(prune='both'))
 	ax6.set_ylim(ymin=0) #starting y axis from zero
 	ax6.legend(fontsize=11, loc=1)
+	ax6.set_xlim(xmin=0) #starting x axis from zero
 
 
 	#Plotting 850micron Radial + PSF Profile
@@ -215,6 +221,7 @@ for Source in Source_Data:
 	ax7.set_ylim([10**(np.log10(max(stellar_850[radial_limit_850])) - 5), 10**(np.log10(max(stellar_850[radial_limit_850])))])
 	ax7.set_yscale('log') #setting y axis to log scale
 	ax7.legend(fontsize=11, loc=1)
+	ax7.set_xlim(xmin=0) #starting x axis from zero
 
 
 	#Plotting 850micron Residual Profile
@@ -229,6 +236,7 @@ for Source in Source_Data:
 	ax8.xaxis.set_major_locator(MaxNLocator(nbins=nbins, prune='both')) #removing max val on x axis to prevent merging with res axis labels
 	ax8.set_ylim(ymin=0) #starting y axis from zero
 	ax8.legend(fontsize=11, loc=1)
+	ax8.set_xlim(xmin=0) #starting x axis from zero
 
 
 	#Adding second x axis on top of plot for the cm x axis scale using the cm scale for 70micron for both stellar and res profiles.
@@ -240,6 +248,7 @@ for Source in Source_Data:
 	ax9.set_ylim([10**(np.log10(max(stellar_70)) - 5), 10**(np.log10(max(stellar_70)))])
 	#ax9.set_xlabel('Radius ($\\times 10^{18}$cm)')
 	ax9.xaxis.set_major_locator(MaxNLocator(nbins=nbins, prune='both')) #removing max val on x axis to prevent merging with res axis labels
+	ax9.set_xlim(xmin=0) #starting x axis from zero
 
 
 	ax10 = ax2.twiny()
@@ -247,6 +256,7 @@ for Source in Source_Data:
 	ax10.errorbar(x_70_pc[radial_limit_70], res_70[radial_limit_70], yerr=res_unc_70[radial_limit_70], fmt='^', color='none', mec='none') #pc units!
 	ax10.xaxis.set_major_locator(MaxNLocator(nbins=nbins, prune='both')) #removing max val on x axis to prevent merging with res axis labels
 	ax10.set_ylim(ymin=0) #starting y axis from zero
+	ax10.set_xlim(xmin=0) #starting x axis from zero
 
 
 	save_file = star + '_RadialProfile.png'
