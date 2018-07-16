@@ -27,6 +27,11 @@ import warnings
 
 - plot of source radial profile+PSF profile and the residual profile for all wavelengths for the chosen source. Radial (x) axes are given in both projected (arcsec) and physical (pc) sizes.
 
+
+#### Note ######
+1) Xmin must be forced to zero in all lines due to a bug in matplotlib twin command where it adds some padding at the start only to the top x axis causing the axis ticks to be slightly shifted to the right when comapred to the bottom axis.  
+2) Limits (used in other lines) must be added to the fake line plotted in order to call the top axes again due to a requirment in the twin command.
+
 """
 
 font = {'family' : 'normal',

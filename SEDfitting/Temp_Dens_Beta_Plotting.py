@@ -27,6 +27,11 @@ import matplotlib.ticker as mtick
 1) .png of image of the temperature, density and beta profile for all the sources in the sample. 
 
 
+#### Note ######
+1) Xmin must be forced to zero in all lines due to a bug in matplotlib twin command where it adds some padding at the start only to the top x axis causing the axis ticks to be slightly shifted to the right when comapred to the bottom axis.  
+2) Limits (used in other lines) must be added to the fake line plotted in order to call the top axes again due to a requirment in the twin command.  
+
+
 """
 
 font = {'family' : 'normal',
@@ -101,6 +106,7 @@ temperature_upper_limit = (max(Temperature) + Temperature_PlusUnc[np.argmax(Temp
 #ax1.set_ylim([0,250])
 #ax1.set_xlabel("Radius ($^{\prime\prime}$)")
 ax1.set_ylabel('T (K)')
+ax1.set_xlim(xmin=0) #starting x axis from zero
 
 
 ax2 = fig.add_subplot(gs[1], sharex=ax1) 
@@ -116,7 +122,7 @@ density_upper_limit = (max(Density) + Density_PlusUnc[np.argmax(Density)]) + 0.6
 #ax2.set_ylim([density_lower_limit, density_upper_limit])
 #ax2.set_ylim([-10, -4.5])
 ax2.set_ylabel('log($\\Sigma$ (g cm$^{-2}$))')
-
+ax2.set_xlim(xmin=0) #starting x axis from zero
 	
 ax3 = fig.add_subplot(gs[2], sharex=ax1) 
 ax3.errorbar(x_interp[nskip:], Beta[nskip:], yerr=[Beta_MinusUnc[nskip:], Beta_PlusUnc[nskip:]], fmt='--s', color='darkgreen', capsize=2)
@@ -133,6 +139,7 @@ ax3.set_ylim([beta_lower_limit, beta_upper_limit])
 ax3.set_ylim(ymin=0) #starting y axis from zero
 ax3.set_xlabel("Radius ($^{\prime\prime}$)")
 ax3.set_ylabel('$\\beta$')
+ax3.set_xlim(xmin=0) #starting x axis from zero
 
 #Additional x axis for time units
 ax4 = ax1.twiny()
@@ -147,6 +154,7 @@ ax4.xaxis.set_major_locator(MaxNLocator(nbins=nbins, prune='both')) #removing ma
 #ax4.set_xlabel("Time ($\\times 10^{11} $s)")
 #ax4.set_xlabel("Time ($10^{3}$yr)")
 ax4.set_xlabel("Time (yr)")
+ax4.set_xlim(xmin=0) #starting x axis from zero
 
 
 
