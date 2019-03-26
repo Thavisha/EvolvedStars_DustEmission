@@ -105,8 +105,8 @@ def aperture_photometry_data(star, input_filename, r_stellar, r_inner, r_outer, 
 					((aperture_photometry['aperture_sum_err_0'])**2) + 
 					
 						(
-							((aperture_photometry['aperture_sum_err_1'])**2)
-							*(stellar_aperture.area()/sky_annlus.area())
+                            (((stellar_aperture.area()/sky_annlus.area())*(aperture_photometry['aperture_sum_err_1']))**2)
+                             #Rescaling the same as bkg_sum
 						)
 					)
 
