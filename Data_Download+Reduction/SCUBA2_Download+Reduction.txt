@@ -4,9 +4,12 @@ Scripts are being generated to do this automatically and is in preparation stage
 
 1) wget --content-disposition -i urllist.txt 
  
-- urllist.txt is the list of download URLs provided by CADC in order to download after choosing the observations and clicking download. 
-- tabs to fill in CADC = Program ID: M15BI047 and M15AI65. Collection: JCMT. Instrument: SCUBA-2. Filter:450 or 850. Cal.Lev: Raw Instrumental. Data Type: All. Obs Type: Scan.
-- IRC+10216 and O Ceti individual pointing observation Obs IDs given in separate csv files (tabs to fill in CADC = Target: IRC+10216 or Mira. Cal Lev: Raw Instrumental. Obs-Type: Pointing. Program ID is ignored here). 
+- urllist.txt is the list of download URLs provided by CADC in order to download after choosing the observations and clicking download. The text files can be found in the "CADC_DownloadFiles" folder located within this folder
+
+- tabs to filled in CADC = Program ID: M15BI047 and M15AI65. Collection: JCMT. Instrument: SCUBA-2. Filter:450 or 850. Cal.Lev: Raw Instrumental. Data Type: All. Obs Type: Scan.
+
+
+- IRC+10216 and O Ceti individual pointing observation Obs IDs given in separate text files in "CADC_DownloadFiles" folder located within this folder (tabs to fill in CADC = Target: IRC+10216 or Mira. Cal Lev: Raw Instrumental. Obs-Type: Pointing. Program ID is ignored here). 
 
 
 
